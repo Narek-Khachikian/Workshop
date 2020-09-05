@@ -73,6 +73,8 @@ namespace WS.WebApp
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
+            IdentityAdminAccountSeed.CreateAdminAccount(app.ApplicationServices, _configuration);
         }
     }
 }

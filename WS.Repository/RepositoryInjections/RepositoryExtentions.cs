@@ -18,9 +18,9 @@ namespace WS.Repository.RepositoryInjections
 
         public static IServiceCollection AddWorkshopIdentityRepository(this IServiceCollection service)
         {
-            service.AddTransient<IWorkshopUserRepository, WorkshopUserRepository>();
-            service.AddTransient<IWorkshopRoleRepository, WorkshopRoleRepository>();
-            service.AddTransient<IWorkshopSignInRepository, WorkshopSignInRepository>();
+            service.AddScoped<IWorkshopUserRepository, WorkshopUserRepository>();
+            service.AddScoped<IWorkshopRoleRepository, WorkshopRoleRepository>();
+            service.AddScoped<IWorkshopSignInRepository, WorkshopSignInRepository>();
             return service;
         }
 

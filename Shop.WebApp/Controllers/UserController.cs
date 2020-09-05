@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WS.Interfaces;
 using WS.Models.Identity;
 using WS.Repository;
+using WS.ViewModels;
 
 namespace WS.WebApp.Controllers
 {
@@ -15,10 +17,12 @@ namespace WS.WebApp.Controllers
     public class UserController : Controller
     {
         private readonly IWorkshopUserRepository _userManager;
+        private readonly IWorkshopRoleRepository _roleManager;
 
-        public UserController(IWorkshopUserRepository manager)
+        public UserController(IWorkshopUserRepository userManager, IWorkshopRoleRepository roleManager)
         {
-            _userManager = manager;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult UserIndex()
@@ -56,17 +60,33 @@ namespace WS.WebApp.Controllers
         public async Task<IActionResult> EditUser(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
-            return View(user);
+            EditUserViewModel model = new EditUserViewModel
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                Id = user.Id,
+                LastName = user.LastName,
+                Status = user.Status,
+                UserName = user.UserName
+            };
+            return View(model);
         }
 
 
         [HttpPost,AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> EditUser(User model)
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByIdAsync(model.Id);
-                IdentityResult result = await _userManager.UpdateUserAsync(model);
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                //user.Status = model.Status;
+                user.NormalizedEmail = user.Email.ToUpper();
+                user.NormalizedUserName = user.UserName.ToUpper();
+                IdentityResult result = await _userManager.UpdateUserAsync(user);
                 if (result.Succeeded)
                 {
                     return RedirectToAction(nameof(UserIndex));
@@ -78,6 +98,37 @@ namespace WS.WebApp.Controllers
             }
 
             return View(model);
+        }
+
+
+        
+        [HttpPost,AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByIdAsync(id);
+                IEnumerable<string> roles = _roleManager.GetAllRoles();
+                foreach(string role in roles)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+                }
+                
+                int delResult = await _userManager.DeleteUser(id);
+                
+            }
+            return RedirectToAction(nameof(UserIndex));
+        }
+
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Recover(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                int delResult = await _userManager.RecoverUserById(id);
+            }
+            return RedirectToAction(nameof(UserIndex));
         }
     }
 }

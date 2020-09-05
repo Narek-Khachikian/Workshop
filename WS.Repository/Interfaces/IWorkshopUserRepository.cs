@@ -31,6 +31,16 @@ namespace WS.Repository
 
         Task<IEnumerable<User>> GetUsersNotInRoleAsync(string roleName);
 
+        Task<User> FindByNameAsync(string userName);
+
+        void RecoverUser(string userName);
+
+        Task<IdentityResult> RemoveFromRolesAsync(User user, IEnumerable<string> roles);
+
+        Task<int> DeleteUser(string id);
+
+        Task<int> RecoverUserById(string id);
+
         #region Admin
 
         int UserCount(UserCountOptions opt);

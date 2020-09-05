@@ -18,5 +18,9 @@ namespace WS.Interfaces
         Task<IdentityRole> FindByIdAsync(string roleId);
 
         Task<IdentityResult> DeleteAsync(IdentityRole role);
+
+        Task<IdentityRole> FindByNameAsync(string roleName);
+
+        IEnumerable<string> GetAllRoles();
     }
 }

@@ -21,7 +21,22 @@
                 <td>@user.Id</td>
                 <td>@(user.Status ? "Active" : "Deleted")</td>
                 <td class="text-center">
-                    <a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-sm btn-warning">Edit</a>
+                    @if (user.Status == true)
+                    {
+                        <form asp-action="Delete" method="post">
+                            <a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <input hidden name="id" value="@user.Id" />
+                            <input type="submit" class="btn btn-sm btn-danger" value="Delete" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Recover" method="post">
+                            <a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <input hidden name="id" value="@user.Id" />
+                            <input type="submit" class="btn btn-sm btn-secondary" value="Recover" />
+                        </form>
+                    }
                 </td>
             </tr>
         }

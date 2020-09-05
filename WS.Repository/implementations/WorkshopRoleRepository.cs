@@ -18,5 +18,10 @@ namespace WS.implementations
 
         public int RolesCount() => Roles.Count();
 
+        public IEnumerable<string> GetAllRoles()
+        {
+            IEnumerable<string> result = Roles.Select(r => r.Name).ToList();
+            return result;
+        }
     }
 }

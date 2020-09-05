@@ -23,21 +23,11 @@ namespace WS.Repository
 
         public IQueryable<User> ActiveUsers => base.Users.Where(u => u.Status == true);
 
-        public async new Task<IdentityResult> UpdateUserAsync(User model)
+        public new async Task<IdentityResult> UpdateUserAsync(User model)
         {
-            User user = await FindByIdAsync(model.Id);
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.UserName = model.UserName;
-            user.Email = model.Email;
-            user.Status = model.Status;
-            user.NormalizedEmail = user.Email.ToUpper();
-            user.NormalizedUserName = user.UserName.ToUpper();
-
-            IdentityResult result = await UpdateAsync(user);
+            IdentityResult result = await base.UpdateUserAsync(model);
             return result;
         }
-
 
         public async Task<IList<string>> GetUsersNameInRoleAsync(string roleName)
         {
@@ -51,6 +41,26 @@ namespace WS.Repository
             //IQueryable<IdentityUserRole<string>> userRole = _dbContext.UserRoles.Where(ur => ur.RoleId != role.Id);
             //IEnumerable<User> result = _dbContext.Users.Where(u=>u.Status == true).Join(userRole, u => u.Id, ur => ur.UserId, (u, ur) => u);
             return result;
+        }
+
+        public void RecoverUser(string userName)
+        {
+            _dbContext.Users.Where(u => u.UserName == userName).Single().Status = true;
+            _dbContext.SaveChanges();
+        }
+
+        public async Task<int> DeleteUser(string id)
+        {
+            _dbContext.Users.Where(u => u.Id == id).Single().Status = false;
+            int num = await _dbContext.SaveChangesAsync();
+            return num;
+        }
+
+        public async Task<int> RecoverUserById(string id)
+        {
+            _dbContext.Users.Where(u => u.Id == id).Single().Status = true;
+            int num = await _dbContext.SaveChangesAsync();
+            return num;
         }
 
 
