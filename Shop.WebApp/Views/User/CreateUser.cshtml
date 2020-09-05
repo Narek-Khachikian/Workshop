@@ -1,0 +1,36 @@
+﻿@model User
+@{
+    Layout = "_IdentityLayout";
+}
+
+<h5 class="bg-primary text-white text-center p-2">Register User</h5>
+<form asp-action="CreateUser" method="post" class="m-1" style="width:320px">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control"  />
+        <span asp-validation-for="LastName" class="text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control"  />
+        <span asp-validation-for="UserName" class="text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" ></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="UserName" class="text text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-secondary" asp-action="@nameof(WS.WebApp.Controllers.UserController.UserIndex)">Back</a>
+</form>

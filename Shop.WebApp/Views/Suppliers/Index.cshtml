@@ -1,0 +1,44 @@
+﻿@model List<WSSupplier>
+
+<a asp-controller="Suppliers" asp-action="Create" class="btn btn-primary">Create</a> 
+<span>@TempData["ViewMessage"]</span>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Contact
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(WSSupplier s in Model)
+        {
+            <tr>
+                <td>@s.Id</td>
+            
+                <td>@s.SupplierName</td>
+                
+                <td>@s.Contact</td>
+                <td>@s.Address</td>
+                <td>
+                    <a asp-controller="Suppliers" asp-action="EditSupplier" asp-route-id="@s.Id" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Suppliers" asp-action="DeleteSupplier" asp-route-id="@s.Id" class="btn btn-danger">Delete</a>
+                    <a asp-controller="Suppliers" asp-action="DetailSupplier" asp-route-id="@s.Id" class="btn btn-secondary">Detailes</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

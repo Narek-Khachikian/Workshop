@@ -1,0 +1,61 @@
+﻿@model RoleEditViewModel
+
+@{
+    Layout = "_IdentityLayout";
+}
+
+<h2>Editing Role "@Model.Role.Name"</h2>
+
+<form asp-action="EditRole" method="post">
+    <input type="hidden" name="roleid" value="@Model.Role.Id" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <h5 class="bg-secondary text-white p-2">Members</h5>
+    <table class="table table-sm table-striped table-bordered">
+        <thead><tr><th>Name</th><th>User Name</th><th>Email</th><th></th></tr></thead>
+        <tbody>
+            @if (Model.Members.Count() == 0)
+            {
+                <tr><td colspan="4" class="text-center">No members</td></tr>
+            }
+            @foreach (User user in Model.Members)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <button asp-route-userid="@user.Id"
+                                class="btn btn-primary btn-sm" type="submit">
+                            Change
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h5 class="bg-secondary text-white p-2">Non-Members</h5>
+    <table class="table table-sm table-striped table-bordered">
+        <thead><tr><th>Name</th><th>User Name</th><th>Email</th><th></th></tr></thead>
+        <tbody>
+            @if (Model.NonMembers.Count() == 0)
+            {
+                <tr><td colspan="4" class="text-center">No non-members</td></tr>
+            }
+            @foreach (User user in Model.NonMembers)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <button asp-route-userid="@user.Id"
+                                class="btn btn-primary btn-sm" type="submit">
+                            Change
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+<a class="btn btn-secondary" asp-action="@nameof(WS.WebApp.Controllers.RoleController.RoleIndex)">Back</a>

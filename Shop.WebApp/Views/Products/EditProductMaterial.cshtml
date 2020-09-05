@@ -1,0 +1,40 @@
+﻿@model ProductMaterial
+@using WS.Models;
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>ProductMaterial</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditProductMaterialPost" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden asp-for="WSProductId" value="@Model.WSProductId" class="form-control" />
+                <input hidden asp-for="WSMaterialId" value="@Model.WSMaterialId" class="form-control" />
+                <input hidden asp-for="Id" value="@Model.Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CountInProduct" class="control-label">Quantity</label>
+                <input asp-for="CountInProduct" name="CountInProduct" class="form-control" />
+                <span asp-validation-for="CountInProduct" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountUnit" class="control-label">Unit of Mesurment</label>
+                <select asp-for="CountUnit" name="CountUnit" asp-items="Html.GetEnumSelectList<CountUnit>()">
+                    <option selected hidden value="">-- Select Mesurment Unit --</option>
+                </select>
+                <span asp-validation-for="CountUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+                <a asp-action="Edit" asp-route-id="@Model.WSProductId">Back to Product</a>
+            </div>
+        </form>
+    </div>
+</div>

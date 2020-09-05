@@ -1,0 +1,23 @@
+﻿@{ Layout = null;}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet"
+              asp-href-include="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"
+              asp-fallback-test-class="progress"
+              asp-fallback-test-property="display"
+              asp-fallback-test-value="flex"
+              asp-fallback-href="~/twitter-bootstrap/css/bootstrap.min.css" />
+
+        <title>Access Denied</title>
+    </head>
+    <body>
+        <h4 class="bg-danger text-white text-center p-2">Access Denied</h4>
+        <div class="m-2">
+            <h6>You are not authorized for this URL</h6>
+            <a class="btn btn-outline-danger" href="/">OK</a>
+        </div>
+    </body>
+</html>

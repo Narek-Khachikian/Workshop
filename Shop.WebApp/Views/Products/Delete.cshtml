@@ -1,0 +1,106 @@
+﻿@model ProductDeletionModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string btnClass = "rounded m - 1";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>WSProduct</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            <label>Id</label>
+        </dt>
+        <dd class = "col-sm-10">
+            <input disabled asp-for="Product.Id" />
+        </dd>
+        <dt class = "col-sm-2">
+            <label>Product Name</label>
+        </dt>
+        <dd class = "col-sm-10">
+            <input disabled asp-for="Product.ProductName" />
+        </dd>
+        <dt class = "col-sm-2">
+            <label>Materials</label>
+        </dt>
+        <dd class = "col-sm-10">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Material Name</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ProductMaterial item in Model.Materials)
+                        {
+                            <tr>
+                                <td>@item.WSMaterial.MaterialName</td>
+                                <td>@item.CountInProduct</td>
+                                <td>@item.CountUnit.ToString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="justify-content-center">
+                    <form asp-action="DeletePageProcess" class="d-inline">
+
+                        @if (Model.Pages <= 5)
+                        {
+                            @for (int i = 1; i <= Model.Pages; i++)
+                            {
+                                <input type="submit" value="@i" asp-for="Page" class="@(Model.Page == i ? "bg-success":"") @btnClass" />
+                            }
+                        }
+                        else
+                        {
+                            <input type="submit" value="1" asp-for="Page" class="@(Model.Page == 1?"bg-success":"") @btnClass" />
+                            @if (Model.Page < 4)
+                            {
+                                <input type="submit" value="2" asp-for="Page" class="@(Model.Page == 2?"bg-success":"") @btnClass" />
+                                <input type="submit" value="3" asp-for="Page" class="@(Model.Page == 3?"bg-success":"") @btnClass" />
+                                <input type="submit" value="4" asp-for="Page" class="@(Model.Page == 4?"bg-success":"") @btnClass" />
+                                <span>....</span>
+                            }
+                            else if (Model.Page > Model.Pages - 3)
+                            {
+                                <span>....</span>
+                                <input type="submit" value="@(Model.Pages-3)" asp-for="Page" class="@(Model.Page == Model.Pages-3?"bg-success":"") @btnClass" />
+                                <input type="submit" value="@(Model.Pages-2)" asp-for="Page" class="@(Model.Page == Model.Pages-2?"bg-success":"") @btnClass" />
+                                <input type="submit" value="@(Model.Pages-1)" asp-for="Page" class="@(Model.Page == Model.Pages-1?"bg-success":"") @btnClass" />
+                            }
+                            else
+                            {
+                                <span>....</span>
+                                <input type="submit" value="@(Model.Page-1)" asp-for="Page" />
+                                <input type="submit" value="@(Model.Page)" asp-for="Page" class="bg-success" />
+                                <input type="submit" value="@(Model.Page+1)" asp-for="Page" />
+                                <span>....</span>
+                            }
+
+
+                            <input type="submit" value="@Model.Pages" asp-for="Page" class="@(Model.Page == Model.Pages?"bg-success":"") @btnClass" />
+                        }
+
+                        <input hidden asp-for="Items" value="@Model.Items"/>
+                        <input hidden asp-for="Product.Id" value="@Model.Product.Id" />
+                    </form>
+                </div>
+            </div>
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteConfirmed" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input hidden name="id" value="@Model.Product.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

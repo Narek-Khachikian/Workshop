@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200830224114_Initial.cs" />
+    <Compile Remove="Migrations\20200830224114_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200831115505_SupplierSchemaRemoved.cs" />
+    <Compile Remove="Migrations\20200831115505_SupplierSchemaRemoved.Designer.cs" />
+    <Compile Remove="Migrations\20200831125449_SupplierStatusAdded.cs" />
+    <Compile Remove="Migrations\20200831125449_SupplierStatusAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200831132238_SupplierStatusToNulable.cs" />
+    <Compile Remove="Migrations\20200831132238_SupplierStatusToNulable.Designer.cs" />
+    <Compile Remove="Migrations\20200831134822_SupplierSchemaChangedToWorkshop.cs" />
+    <Compile Remove="Migrations\20200831134822_SupplierSchemaChangedToWorkshop.Designer.cs" />
+    <Compile Remove="Migrations\20200831145743_MaterialsStatusAdded.cs" />
+    <Compile Remove="Migrations\20200831145743_MaterialsStatusAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200831150824_Initial.cs" />
+    <Compile Remove="Migrations\20200831150824_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200831201021_StatusAddedToProduct.cs" />
+    <Compile Remove="Migrations\20200831201021_StatusAddedToProduct.Designer.cs" />
+    <Compile Remove="Migrations\20200831201436_ProductStatusAdded.cs" />
+    <Compile Remove="Migrations\20200831201436_ProductStatusAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200901091524_joinTableIdIsKey.cs" />
+    <Compile Remove="Migrations\20200901091524_joinTableIdIsKey.Designer.cs" />
+    <Compile Remove="Migrations\20200901093322_joinTableIdIsAutoIncrement.cs" />
+    <Compile Remove="Migrations\20200901093322_joinTableIdIsAutoIncrement.Designer.cs" />
+    <Compile Remove="Migrations\20200901093803_Initial.cs" />
+    <Compile Remove="Migrations\20200901093803_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200901110834_MaterialSupplierRelationUpdated.cs" />
+    <Compile Remove="Migrations\20200901110834_MaterialSupplierRelationUpdated.Designer.cs" />
+    <Compile Remove="Migrations\20200901191506_TestEnum.cs" />
+    <Compile Remove="Migrations\20200901191506_TestEnum.Designer.cs" />
+    <Compile Remove="Migrations\20200901191746_Initial.cs" />
+    <Compile Remove="Migrations\20200901191746_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200901191929_Initial.cs" />
+    <Compile Remove="Migrations\20200901191929_Initial.Designer.cs" />
+    <Compile Remove="Migrations\Identity\20200903113547_IdentityAdded.cs" />
+    <Compile Remove="Migrations\Identity\20200903113547_IdentityAdded.Designer.cs" />
+    <Compile Remove="Migrations\Identity\20200903134715_PassAdded.cs" />
+    <Compile Remove="Migrations\Identity\20200903134715_PassAdded.Designer.cs" />
+    <Compile Remove="Migrations\Identity\20200903170112_StatusAdded.cs" />
+    <Compile Remove="Migrations\Identity\20200903170112_StatusAdded.Designer.cs" />
+    <Compile Remove="Migrations\Identity\20200903170251_StatusAdded.cs" />
+    <Compile Remove="Migrations\Identity\20200903170251_StatusAdded.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.Models\WS.Models.csproj" />
+  </ItemGroup>
+
+</Project>

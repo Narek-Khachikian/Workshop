@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WS.Models.WSMaterial>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <a asp-controller="Materials" asp-action="Create" class="btn btn-primary">Create</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaterialName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier.SupplierName)
+            </th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
+            </td>
+            <td>
+                <a asp-controller="Materials" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning" >Edit</a>
+                <a asp-controller="Materials" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                <a asp-controller="Materials" asp-action="Detailes" asp-route-id="@item.Id" class="btn btn-secondary">Detailes</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

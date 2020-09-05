@@ -1,0 +1,48 @@
+﻿@model MaterialCreationViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>MaterialCreationViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div>
+                <input hidden asp-for="Material.Id" />
+                <input hidden asp-for="Material.Status" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Material.MaterialName" class="control-label">Material Name</label>
+                <input asp-for="Material.MaterialName" class="form-control" />
+                <span asp-validation-for="Material.MaterialName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Material.WSSuplierId" class="control-label">Supplier Name</label>
+                <select asp-for="Material.WSSuplierId" class="form-control">
+                    @foreach (WSSupplier sup in Model.Suppliers)
+                    {
+                        @if (sup.Id == Model.Material.WSSuplierId)
+                        {
+                            <option selected value="@sup.Id">@sup.SupplierName</option>
+                        }
+                        else
+                        {
+                            <option value="@sup.Id">@sup.SupplierName</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Material.WSSuplierId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-warning" /> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
