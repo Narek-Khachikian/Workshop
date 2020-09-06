@@ -36,6 +36,16 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="SignOut">Log Out</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <span class="navbar-text" style="color:mediumblue">@User.Identity.Name</span>
+                        </li>
+                        <li class="disabled">
+                            &emsp;&emsp;
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="ChangePassword" class="nav-link">Change Password</a>
                         </li>
                     }
                     else
@@ -44,7 +54,7 @@
                             <a class="nav-link" asp-controller="Home" asp-action="Login" asp-route-returnUrl="@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, Context.Request.Path, Context.Request.QueryString)">Log In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="CreateUser" >Register</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="CreateUser">Register</a>
                         </li>
                     }
                 </ul>

@@ -49,13 +49,20 @@ namespace WS.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Microsoft.AspNetCore.Identity.SignInResult result = await _signinManager.PasswordSignInAsync(model.Username, model.Password, false, false);
-
-                if (result.Succeeded)
+                if (_userManager.ActiveUsers.Where(u => u.NormalizedUserName == model.Username.ToUpper() && u.Status == true).Count() > 0)
                 {
-                    return Redirect(model.ReturnUrl ?? "/");
+                    Microsoft.AspNetCore.Identity.SignInResult result = await _signinManager.PasswordSignInAsync(model.Username, model.Password, false, false);
+
+                    if (result.Succeeded)
+                    {
+                        return Redirect(model.ReturnUrl ?? "/");
+                    }
+                    ModelState.AddModelError("", "Invalid username or password");
                 }
-                ModelState.AddModelError("", "Invalid username or password");
+                else
+                {
+                    ModelState.AddModelError("InvalidUser", "Invalid User, contact the Admin");
+                }
             }
             model.Password = "";
             return View(model);
@@ -92,6 +99,54 @@ namespace WS.WebApp.Controllers
             }
             return View(model);
 
+        }
+
+
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+
+        [Authorize]
+        [HttpPost,AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (model.NewPassword == model.NewPasswordRepeated && model.NewPassword != model.OldPassword)
+            {
+                if (ModelState.IsValid)
+                {
+                    User user = await _userManager.FindByNameAsync(User.Identity.Name);
+                    if(user != null)
+                    {
+                        IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+                        if (result.Succeeded)
+                        {
+                            await _signinManager.SignOutAsync();
+                            return RedirectToAction(nameof(Login));
+                        }
+                        foreach(IdentityError error in result.Errors)
+                        {
+                            ModelState.AddModelError(error.Code, error.Description);
+                        }
+
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("InputPasswordError", "New password and repeated one should be the same, but not same as the old one");
+            }
+            model.NewPassword = "";
+            model.NewPasswordRepeated = "";
+            model.OldPassword = "";
+            return View(model);
         }
     }
 }

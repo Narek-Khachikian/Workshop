@@ -41,6 +41,8 @@ namespace WS.Repository
 
         Task<int> RecoverUserById(string id);
 
+        Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword);
+
         #region Admin
 
         int UserCount(UserCountOptions opt);
