@@ -63,6 +63,11 @@ namespace WS.Repository
             return num;
         }
 
+        public new async Task<IdentityResult> UpdatePasswordHash(User user, string newPassword, bool validatePassword)
+        {
+            return await base.UpdatePasswordHash(user, newPassword, validatePassword);
+        }
+
 
         #region Admin
 

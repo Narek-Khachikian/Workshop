@@ -10,6 +10,8 @@ using WS.Interfaces;
 using WS.Models.Identity;
 using WS.Repository;
 using WS.ViewModels;
+using WS.ExtraFunctions;
+
 
 namespace WS.WebApp.Controllers
 {
@@ -129,6 +131,51 @@ namespace WS.WebApp.Controllers
                 int delResult = await _userManager.RecoverUserById(id);
             }
             return RedirectToAction(nameof(UserIndex));
+        }
+
+
+        [HttpPost,AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> ResetPassword(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string newPassword = Utilities.PasswordGenerator();
+                User user = await _userManager.FindByIdAsync(model.Id);
+
+                await _userManager.RemovePasswordAsync(user);
+                IdentityResult result = await _userManager.AddPasswordAsync(user, newPassword);
+                //IdentityResult result = await _userManager.UpdatePasswordHash(user, newPassword, true);
+                if (result.Succeeded)
+                {
+                    //we should add a mail service to send an email to the user and inform about the new generated password.
+                    TempData["newPassword"] = newPassword;
+                    TempData["UserId"] = user.Id;
+                    return RedirectToAction(nameof(PasswordResetedNotification));
+                }
+                foreach(IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> PasswordResetedNotification()
+        {
+
+            string Id = ((Guid)TempData["UserId"]).ToString();
+            User user = await _userManager.FindByIdAsync(Id);
+            string password = (string)TempData["newPassword"];
+
+            PasswordResetViewModel model = new PasswordResetViewModel
+            {
+                Email = user.Email,
+                Password = password,
+                UserName = user.UserName
+            };
+            
+            return View(model);
         }
     }
 }

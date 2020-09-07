@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Shop.Models\WS.Models.csproj" />
     <ProjectReference Include="..\WS.Data\WS.Data.csproj" />
+    <ProjectReference Include="..\WS.ExtraFunctions\WS.ExtraFunctions.csproj" />
     <ProjectReference Include="..\WS.Repository\WS.Repository.csproj" />
   </ItemGroup>
 

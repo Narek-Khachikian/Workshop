@@ -43,6 +43,13 @@ namespace WS.Repository
 
         Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword);
 
+        Task<IdentityResult> UpdatePasswordHash(User user, string newPassword, bool validatePassword);
+
+        Task<IdentityResult> RemovePasswordAsync(User user);
+
+        Task<IdentityResult> AddPasswordAsync(User user, string password);
+
+
         #region Admin
 
         int UserCount(UserCountOptions opt);

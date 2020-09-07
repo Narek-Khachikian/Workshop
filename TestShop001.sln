@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS.WebApp", "Shop.WebApp\WS.WebApp.csproj", "{28BF358F-0F23-4D9D-A5BC-0B4606108196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WS.WebApp", "Shop.WebApp\WS.WebApp.csproj", "{28BF358F-0F23-4D9D-A5BC-0B4606108196}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS.Models", "Shop.Models\WS.Models.csproj", "{F3BF4445-6AD9-41D7-A3F7-8573116734E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WS.Models", "Shop.Models\WS.Models.csproj", "{F3BF4445-6AD9-41D7-A3F7-8573116734E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS.Data", "WS.Data\WS.Data.csproj", "{81404CB6-3993-44A9-B77F-E1BAD1537B34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WS.Data", "WS.Data\WS.Data.csproj", "{81404CB6-3993-44A9-B77F-E1BAD1537B34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS.Repository", "WS.Repository\WS.Repository.csproj", "{306F3790-96DC-4FBB-A72C-49CC0E53295D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WS.Repository", "WS.Repository\WS.Repository.csproj", "{306F3790-96DC-4FBB-A72C-49CC0E53295D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS.ExtraFunctions", "WS.ExtraFunctions\WS.ExtraFunctions.csproj", "{55168A84-131E-45EC-91D1-EF009DD769F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{306F3790-96DC-4FBB-A72C-49CC0E53295D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{306F3790-96DC-4FBB-A72C-49CC0E53295D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{306F3790-96DC-4FBB-A72C-49CC0E53295D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55168A84-131E-45EC-91D1-EF009DD769F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55168A84-131E-45EC-91D1-EF009DD769F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55168A84-131E-45EC-91D1-EF009DD769F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55168A84-131E-45EC-91D1-EF009DD769F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
