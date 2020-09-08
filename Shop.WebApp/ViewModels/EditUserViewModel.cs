@@ -13,5 +13,7 @@ namespace WS.ViewModels
         public string UserName { get; set; }
         public string Email { get; set; }
         public bool Status { get; set; }
+
+        public Dictionary<string,bool> Roles { get; set; }
     }
 }

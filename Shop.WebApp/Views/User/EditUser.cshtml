@@ -4,49 +4,79 @@
 }
 
 <h5 class="bg-warning text-white text-center p-2">Edit User</h5>
-<form asp-action="EditUser" method="post" id="EditForm" style="width:450px" class="m-1">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label>ID</label>
-        <input asp-for="Id" class="form-control" value="@Model.Id" disabled />
-        <input asp-for="Id" type="hidden" value="@Model.Id" />
-    </div>
-    <div class="form-group">
-        <label>First Name</label>
-        <input asp-for="FirstName" class="form-control" value="@Model.FirstName" />
-    </div>
-    <div class="form-group">
-        <label>Last Name</label>
-        <input asp-for="LastName" class="form-control" value="@Model.LastName" />
-    </div>
-    <div class="form-group">
-        <label>User Name</label>
-        <input asp-for="UserName" class="form-control" value="@Model.UserName" />
-    </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input asp-for="Email" class="form-control" value="@Model.Email" />
-    </div>
-    <div class="form-group">
-        <label>Active?</label>
-        <select disabled asp-for="Status" class="form-control">
-            @if (Model.Status)
-            {
-                <option selected value="@true">Active</option>
-                <option value="@false">Deleted</option>
-            }
-            else
-            {
-                <option value="@true">Active</option>
-                <option selected value="@false">Deleted</option>
-            }
-        </select>
-    </div>
-</form>
+<table class="table">
+    <tr class="d-flex">
+        <td class="col-4">
+            <form asp-action="EditUser" method="post" id="EditForm" style="width:450px" class="m-1">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input asp-for="Id" class="form-control" value="@Model.Id" disabled />
+                    <input asp-for="Id" type="hidden" value="@Model.Id" />
+                </div>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input asp-for="FirstName" class="form-control" value="@Model.FirstName" />
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input asp-for="LastName" class="form-control" value="@Model.LastName" />
+                </div>
+                <div class="form-group">
+                    <label>User Name</label>
+                    <input asp-for="UserName" class="form-control" value="@Model.UserName" />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input asp-for="Email" class="form-control" value="@Model.Email" />
+                </div>
+                <div class="form-group">
+                    <label>Active?</label>
+                    <select disabled asp-for="Status" class="form-control">
+                        @if (Model.Status)
+                        {
+                            <option selected value="@true">Active</option>
+                            <option value="@false">Deleted</option>
+                        }
+                        else
+                        {
+                            <option value="@true">Active</option>
+                            <option selected value="@false">Deleted</option>
+                        }
+                    </select>
+                </div>
+            </form>
 
-<form asp-action="ResetPassword" method="post" id="ResetPassword">
-    <input hidden asp-for="Id" />
-</form>
+            <form asp-action="ResetPassword" method="post" id="ResetPassword">
+                <input hidden asp-for="Id" />
+            </form>
+        </td>
+        <td class="col-1">
+
+        </td>
+        <td class="col-7">
+            <table>
+                @foreach(KeyValuePair<string,bool> role in Model.Roles)
+                {
+                    <tr>
+                        <td>
+                            <label>@role.Key</label>
+                            @if (role.Value == true)
+                            {
+                                <input type="checkbox" checked form="EditForm" name="@("Roles[" + role.Key + "]")" asp-for="Roles[role.Key]" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" form="EditForm" name="@("Roles[" + role.Key + "]")" asp-for="Roles[role.Key]"/>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+</table>
 
 <button form="EditForm" type="submit" class="btn btn-warning">Submit</button>
 <button form="ResetPassword" type="submit" class="btn btn-danger">Reset Password</button>

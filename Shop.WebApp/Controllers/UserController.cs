@@ -62,6 +62,20 @@ namespace WS.WebApp.Controllers
         public async Task<IActionResult> EditUser(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
+            IEnumerable<string> allRoles = _roleManager.GetAllRoles();
+            IList<string> userRoles = await _userManager.GetRolesAsync(user);
+            Dictionary<string, bool> dictionary = new Dictionary<string, bool>();
+            foreach(string role in allRoles)
+            {
+                if (userRoles.Contains(role))
+                {
+                    dictionary.Add(role, true);
+                }
+                else
+                {
+                    dictionary.Add(role, false);
+                }
+            }
             EditUserViewModel model = new EditUserViewModel
             {
                 Email = user.Email,
@@ -69,7 +83,8 @@ namespace WS.WebApp.Controllers
                 Id = user.Id,
                 LastName = user.LastName,
                 Status = user.Status,
-                UserName = user.UserName
+                UserName = user.UserName,
+                Roles = dictionary
             };
             return View(model);
         }
@@ -81,6 +96,21 @@ namespace WS.WebApp.Controllers
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByIdAsync(model.Id);
+
+                IEnumerable<string> roles = _roleManager.GetAllRoles();
+                foreach (string role in roles)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+                }
+
+                if (model.Roles != null)
+                {
+                    foreach(KeyValuePair<string,bool> role in model.Roles)
+                    {
+                        await _userManager.AddToRoleAsync(user, role.Key);
+                    }
+                }
+
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.UserName = model.UserName;
@@ -88,6 +118,8 @@ namespace WS.WebApp.Controllers
                 //user.Status = model.Status;
                 user.NormalizedEmail = user.Email.ToUpper();
                 user.NormalizedUserName = user.UserName.ToUpper();
+
+
                 IdentityResult result = await _userManager.UpdateUserAsync(user);
                 if (result.Succeeded)
                 {
@@ -99,6 +131,22 @@ namespace WS.WebApp.Controllers
                 }
             }
 
+            User tempUser = await _userManager.FindByIdAsync(model.Id);
+            IEnumerable<string> allRoles = _roleManager.GetAllRoles();
+            IList<string> userRoles = await _userManager.GetRolesAsync(tempUser);
+            Dictionary<string, bool> dictionary = new Dictionary<string, bool>();
+            foreach (string role in allRoles)
+            {
+                if (userRoles.Contains(role))
+                {
+                    dictionary.Add(role, true);
+                }
+                else
+                {
+                    dictionary.Add(role, false);
+                }
+            }
+            model.Roles = dictionary;
             return View(model);
         }
 

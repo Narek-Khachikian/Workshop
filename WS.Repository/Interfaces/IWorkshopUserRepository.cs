@@ -49,6 +49,8 @@ namespace WS.Repository
 
         Task<IdentityResult> AddPasswordAsync(User user, string password);
 
+        Task<IList<string>> GetRolesAsync(User user);
+
 
         #region Admin
 
