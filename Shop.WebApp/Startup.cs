@@ -74,7 +74,8 @@ namespace WS.WebApp
                 endpoints.MapDefaultControllerRoute();
             });
 
-            IdentityAdminAccountSeed.CreateAdminAccount(app.ApplicationServices, _configuration);
+            DatabaseSeed.DataSeed(app.ApplicationServices, _configuration);
+            DatabaseSeed.CreateAdminAccount(app.ApplicationServices, _configuration);
         }
     }
 }

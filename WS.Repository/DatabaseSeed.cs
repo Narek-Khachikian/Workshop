@@ -12,8 +12,18 @@ using WS.Models.Identity;
 
 namespace WS.Repository
 {
-    public static class IdentityAdminAccountSeed
+    public static class DatabaseSeed
     {
+
+        public static void DataSeed(IServiceProvider serviceProvider, IConfiguration configuration)
+        {
+            serviceProvider = serviceProvider.CreateScope().ServiceProvider;
+
+            WSDataContext _dbContext = serviceProvider.GetRequiredService<WSDataContext>();
+
+            _dbContext.Database.Migrate();
+        }
+
         public static void CreateAdminAccount(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             CreateAdminAccountAsync(serviceProvider, configuration).Wait();
@@ -35,7 +45,7 @@ namespace WS.Repository
             string password = configuration.GetValue("Admin:AdminUser:Password", "Pa$$w0rd");
             string role = "Admin";
 
-            if(await _roleManager.FindByNameAsync(role) == null)
+            if (await _roleManager.FindByNameAsync(role) == null)
             {
                 IdentityResult result = await _roleManager.CreateAsync(new IdentityRole { Name = role });
                 if (!result.Succeeded)
@@ -45,7 +55,7 @@ namespace WS.Repository
 
             }
 
-            if((await _userManager.GetUsersInRoleAsync(role)).Count<1)
+            if ((await _userManager.GetUsersInRoleAsync(role)).Count < 1)
             {
 
 
@@ -68,7 +78,7 @@ namespace WS.Repository
                 }
 
                 _userManager.RecoverUser(userName);
-                
+
                 await _userManager.AddToRoleAsync(user, role);
             }
         }
