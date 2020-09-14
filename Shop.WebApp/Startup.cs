@@ -33,7 +33,11 @@ namespace WS.WebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddLocalization(opt =>
+            {
+                opt.ResourcesPath = "Localization";
+            });
+            services.AddControllersWithViews().AddRazorRuntimeCompilation().AddViewLocalization();
             services.AddDbContext<WSDataContext>(options => options.UseSqlServer(_configuration.GetConnectionString("Workshop")));
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(_configuration.GetConnectionString("IdentityConnection")));
             services.AddIdentity<User, IdentityRole>(opt=> 
@@ -51,6 +55,9 @@ namespace WS.WebApp
                  opt.AccessDeniedPath = "/Home/AccessDenied";
              });
             services.AddWorkshopRepository().AddWorkshopIdentityRepository();
+
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +69,11 @@ namespace WS.WebApp
             }
 
             app.UseStaticFiles();
-            
+
+            var localizationOptions = new RequestLocalizationOptions();
+            localizationOptions.SetDefaultCulture("en").AddSupportedCultures("en", "hy").AddSupportedUICultures("en", "hy");
+
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseRouting();
 

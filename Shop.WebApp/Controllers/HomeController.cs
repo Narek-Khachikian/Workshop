@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WS.Interfaces;
 using WS.Models.Identity;
@@ -147,6 +150,20 @@ namespace WS.WebApp.Controllers
             model.NewPasswordRepeated = "";
             model.OldPassword = "";
             return View(model);
+        }
+
+
+        [HttpPost,AutoValidateAntiforgeryToken]
+        public IActionResult SetLanguage(string returnUrl, string culture)
+        {
+            if (ModelState.IsValid)
+            {
+                //Response.Cookies.Delete(CookieRequestCultureProvider.DefaultCookieName);
+                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName
+                    , CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture))
+                    , new CookieOptions { Expires = DateTimeOffset.UtcNow.AddMonths(6) });
+            }
+            return LocalRedirect(returnUrl);
         }
     }
 }

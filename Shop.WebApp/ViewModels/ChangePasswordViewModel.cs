@@ -15,6 +15,7 @@ namespace WS.ViewModels
         public string NewPassword { get; set; }
 
         [Display(Name ="Repeat the new Password")]
+        [Compare(nameof(NewPassword))]
         public string NewPasswordRepeated { get; set; }
     }
 }
