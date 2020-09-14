@@ -11,19 +11,20 @@ namespace WS.Models.Identity
     
     public class User : IdentityUser
     {
-        [Required]
+        [Required(ErrorMessage = "{0} is requiered")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is requiered")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         public bool Status { get; set; }
 
         [NotMapped]
-        [Required,DataType(DataType.Password)]
+        [Required(ErrorMessage = "{0} is requiered"),DataType(DataType.Password)]
+        [Display(Name ="Password")]
         public string Password { get; set; }
     }
 }

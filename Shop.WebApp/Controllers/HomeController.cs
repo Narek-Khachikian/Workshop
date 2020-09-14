@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,7 @@ namespace WS.WebApp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("InvalidUser", "Invalid User, contact the Admin");
+                    ModelState.AddModelError("InvalidUser", "Invalid username or password");
                 }
             }
             model.Password = "";
@@ -141,10 +142,6 @@ namespace WS.WebApp.Controllers
                         return RedirectToAction(nameof(Index));
                     }
                 }
-            }
-            else
-            {
-                ModelState.AddModelError("InputPasswordError", "New password and repeated one should be the same, but not same as the old one");
             }
             model.NewPassword = "";
             model.NewPasswordRepeated = "";

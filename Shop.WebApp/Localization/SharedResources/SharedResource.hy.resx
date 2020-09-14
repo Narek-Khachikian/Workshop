@@ -117,28 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back" xml:space="preserve">
-    <value>Վերադարձ</value>
+  <data name="'{0}' and '{1}' do not match" xml:space="preserve">
+    <value>'{0}ը և '{1}' դաշտերը չեն համընկնում</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Էլ. հասցե</value>
+  <data name="Current password" xml:space="preserve">
+    <value>Առկա գաղտնաբառ</value>
   </data>
   <data name="First Name" xml:space="preserve">
     <value>Անուն</value>
   </data>
+  <data name="Invalid username or password" xml:space="preserve">
+    <value>Անհայտ բաժանորդ կամ սխալ գաղտնաբառ</value>
+  </data>
   <data name="Last Name" xml:space="preserve">
     <value>Ազգանուն</value>
+  </data>
+  <data name="New Password" xml:space="preserve">
+    <value>Նոր գաղտնաբառ</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Գաղտնաբառ</value>
   </data>
-  <data name="Register User" xml:space="preserve">
-    <value>Գրանցվել</value>
+  <data name="Repeat the new Password" xml:space="preserve">
+    <value>կրկնել նոր գաղտնաբառը</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Հաստատել</value>
+  <data name="This field is requiered" xml:space="preserve">
+    <value>Այս դաշտը պարտադիր է</value>
+  </data>
+  <data name="This should be the same as New Password field" xml:space="preserve">
+    <value>Այս դաշտում պետք է կրկնվի նոր գաղտնաբառը</value>
   </data>
   <data name="User Name" xml:space="preserve">
-    <value>Հաշվի Անուն</value>
+    <value>Հաշվի անուն</value>
+  </data>
+  <data name="{0} is requiered" xml:space="preserve">
+    <value>{0} դաշտը պարտադիր է</value>
   </data>
 </root>

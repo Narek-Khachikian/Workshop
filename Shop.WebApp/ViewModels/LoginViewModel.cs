@@ -8,11 +8,12 @@ namespace WS.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "{0} is requiered")]
         [Display(Name ="User Name")]
         public string Username { get; set; }
 
-        [Required,DataType(DataType.Password)]
+        [Required(ErrorMessage = "{0} is requiered"), DataType(DataType.Password)]
+        [Display(Name ="Password")]
         public string Password { get; set; }
 
         public string ReturnUrl { get; set; }

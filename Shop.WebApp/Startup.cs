@@ -17,6 +17,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using WS.Models.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.Metadata;
+using WS.WebApp.SharedResources;
 
 namespace WS.WebApp
 {
@@ -33,11 +36,15 @@ namespace WS.WebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.AddControllersWithViews().AddRazorRuntimeCompilation().AddViewLocalization().AddDataAnnotationsLocalization(opt => 
+            {
+                opt.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(SharedResource));
+            });
             services.AddLocalization(opt =>
             {
                 opt.ResourcesPath = "Localization";
             });
-            services.AddControllersWithViews().AddRazorRuntimeCompilation().AddViewLocalization();
             services.AddDbContext<WSDataContext>(options => options.UseSqlServer(_configuration.GetConnectionString("Workshop")));
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(_configuration.GetConnectionString("IdentityConnection")));
             services.AddIdentity<User, IdentityRole>(opt=> 
