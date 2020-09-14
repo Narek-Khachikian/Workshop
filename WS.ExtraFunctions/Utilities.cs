@@ -4,6 +4,11 @@ namespace WS.ExtraFunctions
 {
     public static class Utilities
     {
+
+        /// <summary>
+        /// generates a random password with 12 lenght, with a small letter, a capital letter, a number and a nun-alphabetic character.
+        /// </summary>
+        /// <returns></returns>
         public static string PasswordGenerator()
         {
             Random rand = new Random();

@@ -15,6 +15,11 @@ namespace WS.Repository
     public static class DatabaseSeed
     {
 
+        /// <summary>
+        /// Migrates the database. If the database is not created, it will create the database as well.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="configuration"></param>
         public static void DataSeed(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             serviceProvider = serviceProvider.CreateScope().ServiceProvider;
@@ -24,10 +29,17 @@ namespace WS.Repository
             _dbContext.Database.Migrate();
         }
 
+
+        /// <summary>
+        /// Checkes whether there are any admin accounts or not, if not it will create a default one.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="configuration"></param>
         public static void CreateAdminAccount(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             CreateAdminAccountAsync(serviceProvider, configuration).Wait();
         }
+
 
         private static async Task CreateAdminAccountAsync(IServiceProvider serviceProvider, IConfiguration configuration)
         {
