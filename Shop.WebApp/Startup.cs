@@ -63,8 +63,6 @@ namespace WS.WebApp
              });
             services.AddWorkshopRepository().AddWorkshopIdentityRepository();
 
-            
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,7 +72,12 @@ namespace WS.WebApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
+            app.UseHttpsRedirection();   //https
             app.UseStaticFiles();
 
             var localizationOptions = new RequestLocalizationOptions();

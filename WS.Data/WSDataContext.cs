@@ -16,6 +16,8 @@ namespace WS.Data
 
         }
 
+        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<ProductMaterial>().HasKey(pm => new { pm.WSMaterialId, pm.WSProductId });
