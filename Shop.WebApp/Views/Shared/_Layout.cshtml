@@ -10,79 +10,74 @@
           asp-fallback-test-property="display"
           asp-fallback-test-value="flex"
           asp-fallback-href="~/twitter-bootstrap/css/bootstrap.min.css" /> 
-    
+    <link href="~/hand_tool_tools_work_building_repair_construction_construction_tools-91_icon-icons.com_60418.ico" type="image/x-icon" rel="shortcut icon" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item ">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Products" asp-action="Index">@Localizer["Products"]</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Suppliers" asp-action="Index">@Localizer["Suppliers"]</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Materials" asp-action="Index">@Localizer["Materials"]</a>
-                    </li>
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Products" asp-action="Index">@Localizer["Products"]</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Suppliers" asp-action="Index">@Localizer["Suppliers"]</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Materials" asp-action="Index">@Localizer["Materials"]</a>
+                </li>
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="SignOut">@Localizer["Log Out"]</a>
-
-                        </li>
-                        <li class="nav-item">
-                            <span class="navbar-text" style="color:mediumblue">@User.Identity.Name</span>
-                        </li>
-                        <li class="disabled">
-                            &emsp;&emsp;
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="ChangePassword" class="nav-link">@Localizer["Change Password"]</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Login" asp-route-returnUrl="@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, Context.Request.Path, Context.Request.QueryString)">@Localizer["Log In"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="CreateUser">@Localizer["Register"]</a>
-                        </li>
-                    }
-
+                @if (User.Identity.IsAuthenticated)
+                {
                     <li class="nav-item">
-                        <form id="langForm" asp-controller="Home" asp-action="SetLanguage" method="post">
-                            <input hidden name="returnUrl" value="@(string.IsNullOrEmpty(Context.Request.Path)?"~/": Context.Request.Path.Value)" />
-                            <select name="culture" class="dropdown m-2">
-                                @switch (Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>().RequestCulture.UICulture.Name)
-                                {
-                                    case "hy":
-                                        <option selected value="@("hy")">Armenian(Հայերեն)</option>
-                                        <option value="@("en")">English</option>
-                                        break;
-                                    default:
-                                        <option value="@("hy")">Armenian(Հայերեն)</option>
-                                        <option selected value="@("en")">English</option>
-                                        break;
-                                }
-                            </select>
-                        </form>
+                        <a class="nav-link" asp-controller="Home" asp-action="SignOut">@Localizer["Log Out"]</a>
+
                     </li>
                     <li class="nav-item">
-                        <button form="langForm" type="submit" class="btn-sm btn-light">@Localizer["Submit Language"]</button>
+                        <span class="navbar-text" style="color:mediumblue">@User.Identity.Name</span>
                     </li>
-                </ul>
-            </div>
+                    <li class="disabled">
+                        &emsp;&emsp;
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Home" asp-action="ChangePassword" class="nav-link">@Localizer["Change Password"]</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Login" asp-route-returnUrl="@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, Context.Request.Path, Context.Request.QueryString)">@Localizer["Log In"]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="CreateUser">@Localizer["Register"]</a>
+                    </li>
+                }
+
+                <li class="nav-item">
+                    <form id="langForm" asp-controller="Home" asp-action="SetLanguage" method="post">
+                        <input hidden name="returnUrl" value="@(string.IsNullOrEmpty(Context.Request.Path)?"~/": Context.Request.Path.Value)" />
+                        <select name="culture" class="dropdown m-2">
+                            @switch (Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>().RequestCulture.UICulture.Name)
+                            {
+                                case "hy":
+                                    <option selected value="@("hy")">Armenian(Հայերեն)</option>
+                                    <option value="@("en")">English</option>
+                                    break;
+                                default:
+                                    <option value="@("hy")">Armenian(Հայերեն)</option>
+                                    <option selected value="@("en")">English</option>
+                                    break;
+                            }
+                        </select>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <button form="langForm" type="submit" class="btn-sm btn-light">@Localizer["Submit Language"]</button>
+                </li>
+            </ul>
         </nav>
     </header>
     <div>
